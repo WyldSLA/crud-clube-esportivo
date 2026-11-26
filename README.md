@@ -53,6 +53,8 @@ projeto_crud_esportes/
   * `mysql-connector-python`
   * `python-dotenv`
 
+---
+
 ## 🚀 Como Executar o Projeto
 
 ### 1. Clonar o Repositório
@@ -62,31 +64,40 @@ git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
 ```
 
-### 2. Configurar o Ambiente Virtual (Opcional, mas recomendado)
-
-```bash
-python -m venv .venv
-# Linux/Mac
-source .venv/bin/activate
-# Windows
-.venv\Scripts\activate
-```
-
-### 3. Instalar as Dependências
+### 2. Instalar as Dependências
 
 ```bash
 pip install mysql-connector-python python-dotenv
 ```
 
-### 4. Configurar as Variáveis de Ambiente
+### 3. Criar a Estrutura do Banco de Dados (`schema.sql`)
 
-Crie um arquivo `.env` na raiz do projeto contendo as credenciais de acesso ao seu MySQL:
+Antes de executar o programa em Python, a estrutura de tabelas deve ser criada no MySQL executando o arquivo `database/schema.sql`.
+
+#### Opção A: Pelo MySQL Workbench / DBeaver (Recomendado)
+1. Conecte-se ao seu servidor MySQL.
+2. Crie a base de dados:
+   ```sql
+   CREATE DATABASE IF NOT EXISTS clube_esportivo;
+   USE clube_esportivo;
+   ```
+3. Abra o arquivo `database/schema.sql` no editor SQL e execute todas as instruções.
+
+#### Opção B: Pelo Terminal / Linha de Comando
+```bash
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS clube_esportivo;"
+mysql -u root -p gestao_esportiva < database/schema.sql
+```
+
+### 4. Configurar o Arquivo `.env`
+
+Crie um arquivo `.env` na raiz do projeto contendo as credenciais do seu banco de dados:
 
 ```env
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=sua_senha_aqui
-DB_NAME=gestao_esportiva
+DB_NAME=clube_esportivo
 ```
 
 ### 5. Executar a Aplicação
@@ -95,8 +106,7 @@ DB_NAME=gestao_esportiva
 python main.py
 ```
 
-> *Nota: Ao rodar o `main.py`, o script verificará e criará as tabelas no MySQL automaticamente caso ainda não existam no seu banco de dados.*
-
+---
 ## 📋 Funcionalidades Implementadas
 
 ### 🏅 Competições (CRUD Completo)
