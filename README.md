@@ -86,7 +86,7 @@ Antes de executar o programa em Python, a estrutura de tabelas deve ser criada n
 #### Opção B: Pelo Terminal / Linha de Comando
 ```bash
 mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS clube_esportivo;"
-mysql -u root -p gestao_esportiva < database/schema.sql
+mysql -u root -p clube_esportivo < database/schema.sql
 ```
 
 ### 4. Configurar o Arquivo `.env`
