@@ -1,12 +1,11 @@
 import os
 from dotenv import load_dotenv
-
-load_dotenv()
-
 import mysql.connector
 from mysql.connector import Error
 
-def getConnection():
+load_dotenv()
+
+def conectar():
     try:  
         connection = mysql.connector.connect(
             host=os.getenv("DB_HOST"),
@@ -17,5 +16,5 @@ def getConnection():
         if connection.is_connected():
             return connection
     except Error as e:
-        print(f"Erro ao conectar no Banco de dados: {e}")
+        print(f"Erro ao conectar ao Banco de Dados: {e}")
         return None

@@ -1,12 +1,12 @@
 def formatar_cpf(cpf: str) -> str:
-    cpf_limpo = ''.join(filter(str.isdigit, cpf))
+    cpf_limpo = ''.join(filter(str.isdigit, str(cpf)))
     if len(cpf_limpo) == 11:
         return f"{cpf_limpo[:3]}.{cpf_limpo[3:6]}.{cpf_limpo[6:9]}-{cpf_limpo[9:]}"
     return cpf
 
-def menuAtleta():
+def menuAtletas() -> str:
     print("-" * 44)
-    print("GESTAO DE ATLETAS".center(44))
+    print("GESTÃO DE ATLETAS".center(44))
     print("-" * 44)
 
     opcs = ["Cadastrar Atleta", "Listar Todos os Atletas", "Atualizar Dados do Atleta", "Remover Atleta"]
@@ -14,12 +14,12 @@ def menuAtleta():
     for i, opc in enumerate(opcs, start=1):
         print(f"[{i}] {opc}")
 
-    print("=" * 44)
     print("[0] Voltar ao Menu Principal")
+    print("=" * 44)
 
-    return input("Opção > ")
+    return input("Opção > ").strip()
 
-def menuCadastroAtleta():
+def menuCadastroAtleta() -> dict | None:
     print("\n--- CADASTRAR NOVO ATLETA ---")
     try: 
         nome = input("Nome Completo: ").strip()
@@ -38,37 +38,38 @@ def menuCadastroAtleta():
         print("\n[!] Erro: Idade e ID da Competição devem ser números inteiros válidos.")
         return None
 
-def listarAtletasView(atleas: list[dict]):
-    print("\n" + "-" * 90)
+def listarAtletasView(atletas: list[dict]):
+    largura_tabela = 75
+    print("\n" + "-" * largura_tabela)
     print(
         f"{'ID':<4} | "
-        f"{'NOME':<20} | "
+        f"{'NOME':<25} | "
         f"{'CPF':<15} | "
         f"{'IDADE':<6} | "
-        f"{'MODALIDADE':<14} | "
         f"{'COMPETIÇÃO (ID)'}"
     )
-    print("-" * 90)
+    print("-" * largura_tabela)
 
-    if not atleas:
-        print(" NENHUM ATLETA CADASTRADO.".center(90))
+    if not atletas:
+        print(" NENHUM ATLETA CADASTRADO.".center(largura_tabela))
     else:
-        for atleta in atleas:
-
+        for atleta in atletas:
             id_fmt = f"{atleta['id']:02d}"
-            cpf_fmt = formatar_cpf(str(atleta['cpf']))
-            comp_fmt = f"{atleta['competicao_nome']} ({atleta['competicao_id']})"
+            cpf_fmt = formatar_cpf(atleta['cpf'])
+            
+            if atleta.get('competicao_nome'):
+                comp_fmt = f"{atleta['competicao_nome']} ({atleta['competicao_id']})"
+            else:
+                comp_fmt = "Sem Inscrição"
 
-            nome_fmt = atleta['nome'][:20]
-            modalidade_fmt = atleta['modalidade'][:14]
+            nome_fmt = atleta['nome'][:25]
 
             print(
                 f"{id_fmt:<4} | "
-                f"{nome_fmt:<20} | "
+                f"{nome_fmt:<25} | "
                 f"{cpf_fmt:<15} | "
                 f"{atleta['idade']:<6} | "
-                f"{modalidade_fmt:<14} | "
                 f"{comp_fmt}"
             )
-    print("-" * 90)
+    print("-" * largura_tabela)
     input("\nPressione ENTER para voltar...")

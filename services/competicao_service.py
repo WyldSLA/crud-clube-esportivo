@@ -5,25 +5,27 @@ def validar_premio(premio):
         raise ValueError("Premiação não pode ser negativa.")
 
 def cadastrar_competicao(nome, local, data, premio):
-
     validar_premio(premio)
-    
     dados = {
-        "nome": nome,
-        "local": local,
-        "data": data,
+        "nome": nome.strip(),
+        "local": local.strip(),
+        "data": data.strip(),
         "premio": premio
     }
     return competicao_repository.inserir_competicao(dados)
 
-def atualizar_competicao(id_competicao, nome, local, data, premio):
+def listar_todas_competicoes():
+    return competicao_repository.listar_competicoes()
 
+def atualizar_competicao(id_competicao, nome, local, data, premio):
     validar_premio(premio)
-    
     dados = {
-        "nome": nome,
-        "local": local,
-        "data": data,
+        "nome": nome.strip(),
+        "local": local.strip(),
+        "data": data.strip(),
         "premio": premio
     }
     return competicao_repository.atualizar_competicao(id_competicao, dados)
+
+def remover_competicao(id_competicao):
+    return competicao_repository.excluir_competicao(id_competicao)

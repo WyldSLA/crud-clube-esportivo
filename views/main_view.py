@@ -8,7 +8,7 @@ def menuInicial() -> str:
     for i, opc in enumerate(opcs, start=1):
         print(f"[{i}] {opc}")
 
-    print("=" * 44)
     print("[0] Sair")
+    print("=" * 44)
 
     return input("Opção > ").strip()

@@ -13,8 +13,8 @@ def menuCompeticoes() -> str:
     for i, opc in enumerate(opcs, start=1):
         print(f"[{i}] {opc}")
 
-    print("=" * 44)
     print("[0] Voltar ao Menu Principal")
+    print("=" * 44)
 
     return input("Opção > ").strip()
 
@@ -37,7 +37,8 @@ def menuCadastroCompeticao() -> dict | None:
         return None
 
 def listarCompeticoesView(competicoes: list[dict]):
-    print("\n" + "-" * 90)
+    largura_tabela = 80
+    print("\n" + "-" * largura_tabela)
     print(
         f"{'ID':<4} | "
         f"{'COMPETIÇÃO':<25} | "
@@ -45,16 +46,17 @@ def listarCompeticoesView(competicoes: list[dict]):
         f"{'DATA':<12} | "
         f"{'PRÊMIO (R$)'}"
     )
-    print("-" * 90)
+    print("-" * largura_tabela)
 
     if not competicoes:
-        print(" NENHUMA COMPETIÇÃO CADASTRADA.".center(90))
+        print(" NENHUMA COMPETIÇÃO CADASTRADA.".center(largura_tabela))
     else:
         for comp in competicoes:
             id_fmt = f"{comp['id']:02d}"
             nome_fmt = comp['nome'][:25]
             local_fmt = comp['local'][:20]
-            premio_fmt = f"R$ {comp['premio']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            val_premio = float(comp['premio'])
+            premio_fmt = f"R$ {val_premio:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
             print(
                 f"{id_fmt:<4} | "
@@ -64,5 +66,5 @@ def listarCompeticoesView(competicoes: list[dict]):
                 f"{premio_fmt}"
             )
 
-    print("-" * 90)
+    print("-" * largura_tabela)
     input("\nPressione ENTER para voltar...")
