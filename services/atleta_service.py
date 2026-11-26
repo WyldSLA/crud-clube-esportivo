@@ -39,6 +39,22 @@ def cadastrar_atleta(nome, cpf, idade, id_competicao):
     }
     return atleta_repository.inserir_atleta(dados)
 
+def atualizar_atleta(id_atleta, nome, cpf, idade, id_competicao):
+    cpf_limpo = cpf.replace(".", "").replace("-", "")
+    validar_cpf(cpf_limpo)
+    validar_cpf(cpf)
+    validar_idade(idade)
+    validar_competicao(id_competicao)
+
+    dados = {
+        "nome": nome.strip(),
+        "idade": idade,
+        "cpf": cpf_limpo,
+        "id_competicao": id_competicao
+    }
+
+    return atleta_repository.atualizar_atleta(id_atleta, dados)
+
 def listar_todos_atletas():
     return atleta_repository.listar_atletas()
 

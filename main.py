@@ -25,9 +25,20 @@ def gerenciar_atletas():
             atletas = atleta_service.listar_todos_atletas()
             atleta_view.listarAtletasView(atletas)
 
-        # 3. Atualizar Dados do Atleta (se necessário implementar no service)
+        # 3. Atualizar Dados do Atleta
         elif opc == "3":
-            print("\n[i] Funcionalidade de edição em desenvolvimento.")
+            try:
+                id_atleta = int(input("\nID do Atleta a atualizar: "))
+                dados = atleta_view.menuCadastroAtleta()
+                if dados:
+                    if atleta_service.atualizar_atleta(
+                        id_atleta, dados["nome"], dados["cpf"], dados["idade"], dados["id_competicao"]
+                    ): 
+                        print("\n[✓] Atleta atualizado com sucesso!")
+                    else:
+                        print("\n[!] Atleta não encontrado.")
+            except ValueError as ve:
+                print(f"\n[!] Erro de Validação: {ve}")
 
         # 4. Remover Atleta
         elif opc == "4":
