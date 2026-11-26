@@ -68,3 +68,37 @@ def listarCompeticoesView(competicoes: list[dict]):
 
     print("-" * largura_tabela)
     input("\nPressione ENTER para voltar...")
+
+def menuAtualizarCompeticao(competicao_atual: dict) -> dict | None:
+    print(f"\n--- ATUALIZAR COMPETIÇÃO (ID: {competicao_atual['id']:02d}) ---")
+    print("(Pressione ENTER sem digitar nada para manter o valor atual)\n")
+
+    try:
+        nome = input(f"Nome [{competicao_atual['nome']}]: ").strip()
+        if not nome:
+            nome = competicao_atual['nome']
+
+        local = input(f"Local [{competicao_atual['local']}]: ").strip()
+        if not local:
+            local = competicao_atual['local']
+
+        data = input(f"Data [{competicao_atual['data']}]: ").strip()
+        if not data:
+            data = competicao_atual['data']
+
+        premio_input = input(f"Prêmio [{competicao_atual['premio']}]: ").strip()
+        if not premio_input:
+            premio = float(competicao_atual['premio'])
+        else:
+            premio = float(premio_input)
+
+        return {
+            "nome": nome,
+            "local": local,
+            "data": data,
+            "premio": premio
+        }
+
+    except ValueError:
+        print("\n[!] Erro: O valor do prêmio deve ser um número válido.")
+        return None

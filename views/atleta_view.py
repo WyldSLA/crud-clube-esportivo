@@ -73,3 +73,32 @@ def listarAtletasView(atletas: list[dict]):
             )
     print("-" * largura_tabela)
     input("\nPressione ENTER para voltar...")
+
+def menuAtualizarAtleta(atleta_atual: dict) -> dict | None:
+    print(f"\n--- ATUALIZAR ATLETA (ID: {atleta_atual['id']:02d}) ---")
+    print("(Pressione ENTER sem digitar nada para manter o valor atual)\n")
+
+    try:
+        nome = input(f"Nome [{atleta_atual['nome']}]: ").strip()
+        if not nome:
+            nome = atleta_atual['nome']
+
+        cpf = input(f"CPF [{atleta_atual['cpf']}]: ").strip()
+        if not cpf:
+            cpf = atleta_atual['cpf']
+
+        idade_input = input(f"Idade [{atleta_atual['idade']}]: ").strip()
+        if not idade_input:
+            idade = int(atleta_atual['idade'])
+        else:
+            idade = int(idade_input)
+
+        return {
+            "nome": nome,
+            "cpf": cpf,
+            "idade": idade
+        }
+
+    except ValueError:
+        print("\n[!] Erro: A idade deve ser um número inteiro válido.")
+        return None

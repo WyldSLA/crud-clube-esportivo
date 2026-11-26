@@ -29,11 +29,14 @@ def gerenciar_atletas():
         elif opc == "3":
             try:
                 id_atleta = int(input("\nID do Atleta a atualizar: "))
-                dados = atleta_view.menuCadastroAtleta()
-                if dados:
-                    if atleta_service.atualizar_atleta(
-                        id_atleta, dados["nome"], dados["cpf"], dados["idade"], dados["id_competicao"]
-                    ): 
+                atleta_atual = atleta_service.buscar_atleta(id_atleta)
+                
+                if atleta_atual:
+                    novos_dados = atleta_view.menuAtualizarAtleta(atleta_atual)
+                    if novos_dados:
+                        atleta_service.atualizar_atleta(
+                            id_atleta, novos_dados["nome"], novos_dados["cpf"], novos_dados["idade"], novos_dados["id_competicao"]
+                        )
                         print("\n[✓] Atleta atualizado com sucesso!")
                     else:
                         print("\n[!] Atleta não encontrado.")
@@ -87,11 +90,13 @@ def gerenciar_competicoes():
         elif opc == "3":
             try:
                 id_comp = int(input("\nID da Competição a atualizar: "))
-                dados = competicao_view.menuCadastroCompeticao()
-                if dados:
-                    if competicao_service.atualizar_competicao(
-                        id_comp, dados["nome"], dados["local"], dados["data"], dados["premio"]
-                    ):
+                comp_atual = competicao_service.buscar_competicao(id_comp)
+                if comp_atual:
+                    novos_dados = competicao_view.menuAtualizarCompeticao(comp_atual)
+                    if novos_dados:
+                        competicao_service.atualizar_competicao(
+                            id_comp, novos_dados["nome"], novos_dados["local"], novos_dados["data"], novos_dados["premio"]
+                        )
                         print("\n[✓] Competição atualizada com sucesso!")
                     else:
                         print("\n[!] Competição não encontrada.")

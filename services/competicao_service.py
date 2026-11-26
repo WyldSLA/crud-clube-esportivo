@@ -29,3 +29,6 @@ def atualizar_competicao(id_competicao, nome, local, data, premio):
 
 def remover_competicao(id_competicao):
     return competicao_repository.excluir_competicao(id_competicao)
+
+def buscar_competicao(id_competicao):
+    return competicao_repository.buscar_competicao(id_competicao)

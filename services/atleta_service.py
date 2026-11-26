@@ -60,3 +60,6 @@ def listar_todos_atletas():
 
 def remover_atleta(id_atleta):
     return atleta_repository.excluir_atleta(id_atleta)
+
+def buscar_atleta(id_atleta):
+    return atleta_repository.buscar_atleta(id_atleta)
